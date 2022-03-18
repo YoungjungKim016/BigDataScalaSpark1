@@ -1,6 +1,6 @@
 create external table data2(txno INT,txnlocation STRING,custno INT,amount STRING,category STRING,Time_01 STRING)row format delimited fields terminated by ',' LOCATION '/user/external';
 
-from drivers1test dat insert overwrite table data2 select dat.txno,dat.txnlocation,dat.custno,dat.amount,dat.category,dat.Time_01;
+from new_data1 dat insert overwrite table data2 select dat.txno,dat.txnlocation,dat.custno,dat.amount,dat.category,dat.Time_01;
 
 select * from data2;
 
@@ -8,7 +8,6 @@ Create VIEW Sample_View AS SELECT * FROM data2 WHERE data2.amount>200000;
 
 DROP VIEW Sample_View;
 
-Create INDEX sample_Index ON TABLE data2(txno);
 
 
 create table Customers1T(IDc INT,Name STRING,Age INT,Address STRING, Salary DOUBLE)row format delimited fields terminated by ',' stored as textfile;
