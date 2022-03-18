@@ -22,7 +22,7 @@ show tables;
 
 describe data1;
 
-LOAD DATA INPATH '/user/maria/drivers.txt' OVERWRITE INTO TABLE data1;
+LOAD DATA INPATH '/user/hive/warehouse/drivers.txt' OVERWRITE INTO TABLE data1;
 
 select * from data1;
 
