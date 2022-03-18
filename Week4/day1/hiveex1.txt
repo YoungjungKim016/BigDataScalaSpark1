@@ -1,0 +1,37 @@
+create external table data2(txno INT,txnlocation STRING,custno INT,amount STRING,category STRING,Time_01 STRING)row format delimited fields terminated by ',' LOCATION '/user/external';
+
+from drivers1test dat insert overwrite table data2 select dat.txno,dat.txnlocation,dat.custno,dat.amount,dat.category,dat.Time_01;
+
+select * from data2;
+
+Create VIEW Sample_View AS SELECT * FROM data2 WHERE data2.amount>200000;
+
+DROP VIEW Sample_View;
+
+Create INDEX sample_Index ON TABLE data2(txno);
+
+
+create table Customers1T(IDc INT,Name STRING,Age INT,Address STRING, Salary DOUBLE)row format delimited fields terminated by ',' stored as textfile;
+
+LOAD DATA INPATH '/user/hive/warehouse/CustomersTable.txt' OVERWRITE INTO TABLE Customers1T;
+
+create table Orders1T(OID INT,Date1 TIMESTAMP,Customer_ID INT,Amount INT)row format delimited fields terminated by ',' stored as textfile;
+
+LOAD DATA INPATH '/user/hive/warehouse/OrdersTable.txt' OVERWRITE INTO TABLE Orders1T;
+
+describe Customers1T;
+describe Orders1T;
+
+SELECT c.IDc, c.NAME, c.AGE, o.amount FROM Customers1T c JOIN Orders1T o ON (c.IDc = o.CUSTOMER_ID);
+
+SELECT c.IDc, c.NAME, o.AMOUNT, o.DATE1 
+FROM CUSTOMERS1t c 
+LEFT OUTER JOIN ORDERS1t o 
+ON (c.IDc = o.CUSTOMER_ID);
+
+SELECT c.IDc, c.NAME, o.AMOUNT, o.DATE1 FROM CUSTOMERS1t c RIGHT OUTER JOIN ORDERS1t o ON (c.IDc = o.CUSTOMER_ID);
+
+SELECT c.IDc, c.NAME, o.AMOUNT, o.DATE1 FROM CUSTOMERS1t c RIGHT JOIN ORDERS1t o ON (c.IDc = o.CUSTOMER_ID);
+
+
+

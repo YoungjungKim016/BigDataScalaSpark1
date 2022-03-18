@@ -204,7 +204,7 @@ vi ~/.bashrc
 [Press i to Insert the below data]
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 export HADOOP_HOME=~/hadoop/hadoop-3.3.0
-export PATH=$PATH:$HADOOP_HOME/bin
+export PATH=$HADOOP_HOME/bin:$JAVA_HOME/bin:$PATH
 export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 
 [then, Press Esc button]
