@@ -37,3 +37,5 @@ Also https://docs.microsoft.com/en-us/dotnet/spark/how-to-guides/windows-instruc
 and it leads you to https://github.com/steveloughran/winutils where you can find Hadoop 3.0.0 winutils.exe or Hadoop 2.7.0 winutils.exe
 
 https://stackoverflow.com/questions/27618843/why-does-spark-submit-and-spark-shell-fail-with-failed-to-find-spark-assembly-j/30047304
+
+https://stackoverflow.com/questions/41851066/exception-in-thread-main-java-lang-unsatisfiedlinkerror-org-apache-hadoop-io
