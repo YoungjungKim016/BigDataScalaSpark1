@@ -1,0 +1,80 @@
+Creating a RDD different ways 
+
+1)val rdd1 = sc.parallelize(Array("jan","feb"))
+rdd1.collect
+
+Transformation
+
+2)val words = sc.parallelize(Seq("ja","feb","kiojh"))
+val wordpair = words.map(w=> (w.charAt(0), w))
+wordpair.collect
+
+3)val a = sc.parallelize(List("dog","almon"),3)
+val b = a.map(_.length)
+val c = a.zip(b)
+c.collect
+
+4)val a = sc.parallelize(1 to 10)
+val b = a.filter(_%2 ==0)
+b.collect
+
+5)
+a.groupBy(x=> { if(x%2 ==0) "even" else "odd"}).collect
+
+6)val a = sc.parallelize(List("hi","hello","world"),3)
+val b = a.keyBy(_.length)
+val c = sc.parallelize(List("hi","hello","koil"),3)
+val d = c.keyBy(_.length)
+val k = b.join(d)
+k.toDebugString
+
+7)
+val textFile = sc.textFile("/user/maria/test.md")
+textFile.map(line => line.split(" ")).collect()
+textFile.flatMap(line => line.split(" ")).collect()
+
+Action
+1) val a = sc.parallelize(1 to 10)
+a.reduce(_+_)
+
+2) val b = sc.parallelize(List("hi","hello","hii","gbhyu","youtu","cat","well","hell","anitha"),3)
+b.takeOrdered(2)
+b.take
+b.first
+
+3)val c = sc.parallelize(List((3,6),(3,7),(5,8),(3,"Dog")),2)
+c.countByKey
+c.countByValue
+
+4)val t = sc.parallelize(List((1, 2), (3, 4), (3, 6)))
+val y = t.reduceByKey((x, y) => x + y)
+y.collect
+
+5)t.groupByKey().collect
+
+6)t.mapValues(x => x+1).collect
+
+7)t.flatMapValues(x => (x to 5)).collect
+
+8)t.keys.collect
+
+9)t.values.collect
+
+10)t.sortByKey().collect
+
+
+
+Persistence.
+
+import org.apache.spark.storage.StorageLevel._
+val b = sc.parallelize(List(1,2,3,4,5,6,7,8,2,4,2,1,1,1,1,1))
+b.getStorageLevel
+b.persist(DISK_ONLY)  
+b.unpersist()
+b.persist(MEMORY_ONLY) 
+
+Look at your existing  partitions command
+
+
+
+

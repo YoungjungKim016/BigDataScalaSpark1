@@ -1,0 +1,81 @@
+Shared Variables.
+
+1)Broadcast Variables
+A broadcast variable is a wrapper provided by the SparkContext that serializes the data, sends it to every worker node, and reuses the variable in every task that needs it.It is crucial to remember that the value is read-only, and we cannot change it after creating the broadcast variable.
+
+val broadcastVar = sc.broadcast(Array(1, 2, 3))
+broadcastVar.value
+
+val states = Map(("NY","New York"),("CA","California"),("FL","Florida"))
+val countries = Map(("USA","United States of America"),("IN","India"))
+
+val broadcastStates = spark.sparkContext.broadcast(states)
+val broadcastCountries = spark.sparkContext.broadcast(countries)
+
+  val data = Seq(("James","Smith","USA","CA"),
+    ("Michael","Rose","USA","NY"),
+    ("Robert","Williams","USA","CA"),
+    ("Maria","Jones","USA","FL")
+  )
+
+val rdd = spark.sparkContext.parallelize(data)
+
+  val rdd2 = rdd.map(f=>{
+    val country = f._3
+    val state = f._4
+    val fullCountry = broadcastCountries.value.get(country).get
+    val fullState = broadcastStates.value.get(state).get
+    (f._1,f._2,fullCountry,fullState)
+  })
+
+
+2)Accumulators
+Accumulators are variables which may be added to through associated operations.  There are many uses for accumulators including implementing counters or sums.
+
+Long Accumulator
+
+val accum = sc.longAccumulator("SumAccumulator")
+sc.parallelize(Array(1, 2, 3)).foreach(x => accum.add(x))
+accum.value
+
+Double Accumulator
+
+val accum = sc.doubleAccumulator("SumAccumulator")
+sc.parallelize(Array(1, 2, 3)).foreach(x => accum.add(x))
+accum.value
+
+
+3) Loading and saving data in spark
+
+val textFile = sc.textFile("/user/will/test1.txt")
+val counts = textFile.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
+counts.saveAsTextFile("/user/will/count_new")
+
+UserInterface
+
+
+4)
+Introduction to dataframes
+
+Interoperating RDD.
+
+case class Person(name: String, age: Long)
+val peopleDF = spark.sparkContext.textFile("/user/will/people.txt")
+val df2=peopleDF.map(_.split(","))
+val df3=df2.map(attributes => Person(attributes(0), attributes(1).trim.toInt)).toDF()
+df3.createOrReplaceTempView("people")
+val teenagersDF = spark.sql("SELECT name, age FROM people WHERE age BETWEEN 13 AND 19")
+teenagersDF.show()
+
+import org.apache.spark.sql.types._
+import org.apache.spark.sql.Row
+val peopleRDD = spark.sparkContext.textFile("/user/will/people.txt")
+val schemaString = "name age"
+val fields = schemaString.split(" ").map(fieldName => StructField(fieldName, StringType, nullable = true))
+val schema = StructType(fields)
+val rowRDD = peopleRDD.map(_.split(",")).map(attributes => Row(attributes(0), attributes(1).trim))
+val peopleDF = spark.createDataFrame(rowRDD, schema)
+peopleDF.createOrReplaceTempView("people")
+val results = spark.sql("SELECT name FROM people").show()
+
+
