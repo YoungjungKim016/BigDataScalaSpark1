@@ -19,7 +19,9 @@ and paste winutils.exe file in Hadoop\bin folder and set environment variable fo
 
 create temp\hive folder in C:\ drive and give the full permission to this folder like: 
 
-C:\Windows\system32>C:\hadoop\bin\winutils.exe chmod 777 /tmp/hive
+type: cd C:\hadoop\bin
+
+then type : winutils.exe chmod 777 /tmp/hive
 
 open command prompt first run C:\hadoop\bin> winutils.exe  and then navigate to C:\spark\bin>
 
