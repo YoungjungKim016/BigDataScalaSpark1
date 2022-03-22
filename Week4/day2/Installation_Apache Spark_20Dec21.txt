@@ -74,8 +74,6 @@ start-master.sh
 (wterry@LAPTOP-F85RETIP:~$ start-master.sh)
 
 
-(wterry@LAPTOP-F85RETIP:~$ logout)
-
 //Run the ssh command
 ssh -L 8080:localhost:8080 wterry@LAPTOP-F85RETIP
 
