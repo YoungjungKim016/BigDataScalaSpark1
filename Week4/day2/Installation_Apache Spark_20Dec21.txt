@@ -74,9 +74,6 @@ start-master.sh
 (wterry@LAPTOP-F85RETIP:~$ start-master.sh)
 
 
-//To access Spark web interface we need to ssh, so logout from the server
-logout
-
 (wterry@LAPTOP-F85RETIP:~$ logout)
 
 //Run the ssh command
