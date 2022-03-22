@@ -29,7 +29,7 @@ val k = b.join(d)
 k.toDebugString
 
 7)
-val textFile = sc.textFile("/user/maria/test.md")
+val textFile = sc.textFile("/user/will/people.txt")
 textFile.map(line => line.split(" ")).collect()
 textFile.flatMap(line => line.split(" ")).collect()
 
@@ -39,7 +39,6 @@ a.reduce(_+_)
 
 2) val b = sc.parallelize(List("hi","hello","hii","gbhyu","youtu","cat","well","hell","anitha"),3)
 b.takeOrdered(2)
-b.take
 b.first
 
 3)val c = sc.parallelize(List((3,6),(3,7),(5,8),(3,"Dog")),2)
