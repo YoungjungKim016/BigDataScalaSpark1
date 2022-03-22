@@ -1,0 +1,19 @@
+Title	Learning Spark: Lightning-fast Data Analytics
+Authors	Jules S. Damji, Brooke Wenig, Tathagata Das, Denny Lee
+Edition	2, illustrated
+Publisher	O'Reilly Media, 2020
+ISBN	1492050040, 9781492050049
+Length	373 pages
+
+
+https://spark.apache.org/docs/latest/
+
+https://spark.apache.org/docs/latest/quick-start.html
+
+https://spark.apache.org/docs/latest/sql-getting-started.html
+
+https://spark.apache.org/docs/latest/rdd-programming-guide.html
+
+https://spark.apache.org/docs/latest/api/scala/org/apache/spark/index.html
+
+https://sparkbyexamples.com/
