@@ -2,22 +2,26 @@ White, Tom. Hadoop: The definitive guide. " O'Reilly Media, Inc.", 2015.
 
 https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
 
-\\good Hadoop pictures and overview
+//good Hadoop pictures and overview
 http://ercoppa.github.io/HadoopInternals/HadoopArchitectureOverview.html
 
-\\for hive
+//for hive
 https://www.tutorialspoint.com/hive/hive_introduction.htm
 
 https://docs.cloudera.com/HDPDocuments/HDP3/HDP-3.0.0/using-hiveql/content/hive_constraints.html
 
 https://cwiki.apache.org/confluence/display/Hive/Managed+vs.+External+Tables
 
-\\for hadoop api in Windows
+https://data-flair.training/blogs/hive-internal-tables-vs-external-tables/
+
+//for hadoop api in Windows
 https://kaizen.itversity.com/setup-development-environment-intellij-and-scala-big-data-hadoop-and-spark/
 
-\\to work with MySQL and HDFS you could use sqoop
+//to work with MySQL and HDFS you could use sqoop
 https://www.tutorialspoint.com/sqoop/sqoop_introduction.htm
 
-\\for transferring unstructure data to HDFS you could use flume
+//for transferring unstructure data to HDFS you could use flume
 https://www.tutorialspoint.com/apache_flume/apache_flume_quick_guide.htm
+
+
 

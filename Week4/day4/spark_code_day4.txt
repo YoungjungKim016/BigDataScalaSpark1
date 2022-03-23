@@ -76,6 +76,7 @@ val schema = StructType(fields)
 val rowRDD = peopleRDD.map(_.split(",")).map(attributes => Row(attributes(0), attributes(1).trim))
 val peopleDF = spark.createDataFrame(rowRDD, schema)
 peopleDF.createOrReplaceTempView("people")
-val results = spark.sql("SELECT name FROM people").show()
+val results = spark.sql("SELECT name FROM people")
+results.show()
 
 

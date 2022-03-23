@@ -20,3 +20,6 @@ https://sparkbyexamples.com/
 
 //accumulators
 https://sparkbyexamples.com/spark/spark-accumulators/
+
+//Spark Types ofr StuctFields
+https://spark.apache.org/docs/latest/sql-ref-datatypes.html

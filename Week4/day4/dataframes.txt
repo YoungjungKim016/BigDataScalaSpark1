@@ -1,9 +1,5 @@
 DataFrame
 
-{"name":"Michael"}
-{"name":"Andy", "age":30}
-{"name":"Justin", "age":19}
-
 var df1 = spark.read.json("/user/will/people.json")
 df1.show()
 //var df2 = spark.read.text("/user/will/people.txt")

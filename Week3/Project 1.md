@@ -5,7 +5,7 @@
 ### MVP:
 - ALL user interaction must come purely from the console application
 - Hive/MapReduce must:
-    - scrap data from datasets from an API based on your topic of choice
+    - scrape data from datasets from an API based on your topic of choice
 - Your console application must:
     - query data to answer at least 6 analysis questions of your choice
     - have a login system for all users with passwords
