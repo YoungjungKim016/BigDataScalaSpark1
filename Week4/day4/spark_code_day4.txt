@@ -1,7 +1,7 @@
 Shared Variables.
 
 1)Broadcast Variables
-A broadcast variable is a wrapper provided by the SparkContext that serializes the data, sends it to every worker node, and reuses the variable in every task that needs it.It is crucial to remember that the value is read-only, and we cannot change it after creating the broadcast variable.
+A broadcast variable is a wrapper provided by the SparkContext that serializes the data, sends it to every worker node, and reuses the variable in every task that needs it. It is crucial to remember that the value is read-only, and we cannot change it after creating the broadcast variable.
 
 val broadcastVar = sc.broadcast(Array(1, 2, 3))
 broadcastVar.value
@@ -49,7 +49,7 @@ accum.value
 
 val textFile = sc.textFile("/user/will/test1.txt")
 val counts = textFile.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
-counts.saveAsTextFile("/user/will/count_new")
+counts.saveAsTextFile("/user/will/count_new3")
 
 UserInterface
 
@@ -60,16 +60,16 @@ Introduction to dataframes
 Interoperating RDD.
 
 case class Person(name: String, age: Long)
-val peopleDF = spark.sparkContext.textFile("/user/will/people.txt")
-val df2=peopleDF.map(_.split(","))
-val df3=df2.map(attributes => Person(attributes(0), attributes(1).trim.toInt)).toDF()
-df3.createOrReplaceTempView("people")
-val teenagersDF = spark.sql("SELECT name, age FROM people WHERE age BETWEEN 13 AND 19")
+val peopleRDD = spark.sparkContext.textFile("/user/will/people.csv")
+val Rdd2=peopleRDD.map(_.split(","))
+val PeopleDF=Rdd2.map(attributes => Person(attributes(0), attributes(1).trim.toInt)).toDF()
+PeopleDF.createOrReplaceTempView("people")
+val teenagersDF = spark.sql("SELECT name, age FROM people WHERE age BETWEEN 20 AND 25")
 teenagersDF.show()
 
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.Row
-val peopleRDD = spark.sparkContext.textFile("/user/will/people.txt")
+val peopleRDD = spark.sparkContext.textFile("/user/will/people.csv")
 val schemaString = "name age"
 val fields = schemaString.split(" ").map(fieldName => StructField(fieldName, StringType, nullable = true))
 val schema = StructType(fields)

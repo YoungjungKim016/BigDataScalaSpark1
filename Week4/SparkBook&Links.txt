@@ -17,3 +17,6 @@ https://spark.apache.org/docs/latest/rdd-programming-guide.html
 https://spark.apache.org/docs/latest/api/scala/org/apache/spark/index.html
 
 https://sparkbyexamples.com/
+
+//accumulators
+https://sparkbyexamples.com/spark/spark-accumulators/
