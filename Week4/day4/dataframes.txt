@@ -11,7 +11,7 @@ df1.show()
 var df2=spark.read.format("csv").option("sep","\t").load("/user/will/people.txt")
 var df3 = spark.read.csv("/user/will/people.csv")
 df3.show()
-df.printSchema()
+df1.printSchema()
 
 df1.select("name").show()
 df1.select($"age" +1).show()
