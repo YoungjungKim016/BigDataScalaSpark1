@@ -1,5 +1,9 @@
 White, Tom. Hadoop: The definitive guide. " O'Reilly Media, Inc.", 2015.
 
+//for hadoop
+https://www.geeksforgeeks.org/hdfs-commands/
+
+
 https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
 
 //good Hadoop pictures and overview
