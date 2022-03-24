@@ -88,11 +88,19 @@ External Tables Vs Managed tables
 
 create external table data2(txno INT, txnlocation STRING, custno INT) row format delimited fields terminated by ',' stored as textfile  LOCATION '/user/will';
 
-from data1 dat insert overwrite table data2 select dat.txno,dat.txnlocation,dat.custno,dat.amount,dat.category,dat.Time;
+from data1 dat insert overwrite table data2 select dat.txno,dat.txnlocation,dat.custno;
 
 or load command
 
+create external table if not exists [external-table-name] (
+[column1-name] [column1-type], [column2-name] [column2-type], …)
+comment '[comment]'
+row format [format-type]
+fields terminated by '[termination-character]'
+stored as [storage-type]
+location '[location]';
 
+https://phoenixnap.com/kb/hive-create-external-table
 
 View
 
