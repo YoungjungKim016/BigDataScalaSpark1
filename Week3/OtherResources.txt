@@ -16,6 +16,8 @@ https://docs.cloudera.com/HDPDocuments/HDP3/HDP-3.0.0/using-hiveql/content/hive_
 
 https://cwiki.apache.org/confluence/display/Hive/Managed+vs.+External+Tables
 
+https://hive.apache.org/
+
 https://data-flair.training/blogs/hive-internal-tables-vs-external-tables/
 
 https://www.docs4dev.com/docs/en/apache-hive/3.1.1/reference/
