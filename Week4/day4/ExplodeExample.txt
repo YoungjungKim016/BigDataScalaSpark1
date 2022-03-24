@@ -1,0 +1,22 @@
+https://sparkbyexamples.com/spark/spark-explode-nested-array-to-rows/
+
+val arrayArrayData = Seq(
+    Row("James",List(List("Java","Scala","C++"),List("Spark","Java"))),
+    Row("Michael",List(List("Spark","Java","C++"),List("Spark","Java"))),
+    Row("Robert",List(List("CSharp","VB"),List("Spark","Python")))
+  )
+
+val arrayArraySchema = new StructType().add("name",StringType).add("subjects",ArrayType(ArrayType(StringType)))
+
+val df = spark.createDataFrame(spark.sparkContext.parallelize(arrayArrayData),arrayArraySchema)
+df.printSchema()
+df.show()
+
+val df2 = df.select($"name",explode($"subjects"))
+   
+df2.printSchema()
+df2.show(false)
+
+\\or if we wanted to flatten
+
+df.select($"name",flatten($"subjects")).show(false)
