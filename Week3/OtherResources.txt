@@ -18,6 +18,11 @@ https://cwiki.apache.org/confluence/display/Hive/Managed+vs.+External+Tables
 
 https://data-flair.training/blogs/hive-internal-tables-vs-external-tables/
 
+https://www.docs4dev.com/docs/en/apache-hive/3.1.1/reference/
+
+https://dwgeek.com/hive-different-file-formats-text-sequence-rc-avro-orc-parquet-file.html/
+
+
 //for hadoop api in Windows
 https://kaizen.itversity.com/setup-development-environment-intellij-and-scala-big-data-hadoop-and-spark/
 
