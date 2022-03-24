@@ -8,6 +8,10 @@ Length	373 pages
 //bucket example
 https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.sql.DataFrameWriter.bucketBy.html
 
+//also
+https://jaceklaskowski.gitbooks.io/mastering-spark-sql/content/spark-sql-bucketing.html
+
+
 https://spark.apache.org/docs/latest/
 
 https://spark.apache.org/docs/latest/quick-start.html
