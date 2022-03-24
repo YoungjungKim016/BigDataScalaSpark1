@@ -5,6 +5,8 @@ Publisher	O'Reilly Media, 2020
 ISBN	1492050040, 9781492050049
 Length	373 pages
 
+//bucket example
+https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.sql.DataFrameWriter.bucketBy.html
 
 https://spark.apache.org/docs/latest/
 
