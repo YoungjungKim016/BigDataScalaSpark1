@@ -86,7 +86,7 @@ Syntax: STRUCT<col_name : data_type [COMMENT col_comment], ...>
 
 External Tables Vs Managed tables
 
-create external table data2(txno INT,txnlocation STRING,custno INT,amount STRING,category STRING,Time STRING)row format delimited fields terminated by ',' LOCATION '/user/external';
+create external table data2(txno INT, txnlocation STRING, custno INT) row format delimited fields terminated by ',' stored as textfile  LOCATION '/user/will';
 
 from data1 dat insert overwrite table data2 select dat.txno,dat.txnlocation,dat.custno,dat.amount,dat.category,dat.Time;
 
@@ -129,7 +129,7 @@ Create INDEX sample_Index ON TABLE guruhive_internaltable(id)
 
 Here we are creating index on table guruhive_internaltable for column name id.
 
-OIN is a clause that is used for combining specific fields from two tables by using values common to each one. It is used to combine records from two or more tables in the database.
+JOIN is a clause that is used for combining specific fields from two tables by using values common to each one. It is used to combine records from two or more tables in the database.
 
 Syntax
 join_table:
