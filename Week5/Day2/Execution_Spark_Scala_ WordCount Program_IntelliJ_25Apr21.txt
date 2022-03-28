@@ -1,0 +1,237 @@
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Link1: https://www.youtube.com/watch?v=aSD7K9WQ198 (https://stdatalabs.com/2018/09/creating-spark-application-using-intellij-and-sbt/)
+Link2: https://blog.miz.space/tutorial/2016/08/30/how-to-integrate-spark-intellij-idea-and-scala-install-setup-ubuntu-windows-mac/
+
+// Open IntelliJ
+
+New Project > Scala > sbt > Next > 
+
+Name = SampleSparkScalaApp
+
+JDK = 11 (3)version 11.0.6
+
+sbt = 1.5.0 (current latest version)
+
+Scala version =  2.11.12  (can be checked for the supporting version for the Java JDK installed. In this case for Java 8. Can be checked in WSL (enter 'spark-shell' in the ubuntu terminal. Will show the Scala version installed along with spark)
+
+//Click Finish
+
+//Note: when creating sbt for first time. It will take few minutes for sbt project to get created
+
+Result: build: sync:
+SampleSparkScalaApp: finished at ...data and time
+
+//In the side window
+[info] Writing structure to C:\Users\jismi\AppData\Local\Temp\sbt-structure.xml...
+[info] Done.
+[success] Total time: 19 s, completed 25-Apr-2021, 11:40:11 AM
+[info] shutting down sbt server
+
+
+// After sbt project is created:
+Double Click on build.sbt. Need to update necessary spark dependencies here
+
+// Open below link in browser to down the dependencies:
+https://mvnrepository.com/artifact/org.apache.spark
+
+- //Click on 'spark-core'
+//Click on Version '2.3.1' (Current working version)
+
+//Click on sbt tab and copy the dependencies:and paste it in build.sbt file
+// https://mvnrepository.com/artifact/org.apache.spark/spark-core
+libraryDependencies += "org.apache.spark" %% "spark-core" % "2.3.1"
+
+
+
+- //Click on 'spark-sql'  (by navigating back to - https://mvnrepository.com/artifact/org.apache.spark)
+//Click on Version '2.3.1' (Current working version)
+
+//Click on sbt tab and copy the dependencies:and paste it in build.sbt file
+// https://mvnrepository.com/artifact/org.apache.spark/spark-sql
+libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.3.1"
+
+
+
+- //Click on 'spark-hive'  (by navigating back to - https://mvnrepository.com/artifact/org.apache.spark)
+//Click on Version '2.3.1' (Current working version)
+
+//Click on sbt tab and copy the dependencies:and paste it in build.sbt file
+// https://mvnrepository.com/artifact/org.apache.spark/spark-hive
+libraryDependencies += "org.apache.spark" %% "spark-hive" % "2.3.1"
+
+
+// Then reload build.sbt, to extract all the required dependencies
+
+// After successful reload
+
+Result: build: sync:
+SampleSparkScalaApp: finished at ...data and time
+
+//In the side window
+[info] Writing structure to C:\Users\jismi\AppData\Local\Temp\sbt-structure.xml...
+[info] Done.
+[success] Total time: 142 s (02:22), completed 25 Apr, 2021 1:15:15 PM
+[info] shutting down sbt server
+
+
+// Spark word count code - Program 1:
+src > main > scala > right click > new > scala class
+Object = SampleSparkApp 
+
+// Then, add the below: 
+-----------------------
+import org.apache.spark.sql.SparkSession
+
+object SampleSparkApp extends App {
+
+  val spark = SparkSession.builder
+    .master("local[*]")
+    .appName("Spark Word Count")
+    .getOrCreate()
+
+  val lines = spark.sparkContext.parallelize(
+    Seq("Spark Intellij Idea Scala test one",
+      "Spark Intellij Idea Scala test two",
+      "Spark Intellij Idea Scala test three"))
+
+  val counts = lines
+    .flatMap(line => line.split(" "))
+    .map(word => (word, 1))
+    .reduceByKey(_ + _)
+
+  counts.foreach(println)
+}
+--------------------------------------------------
+Result: Can be checked in teh Run result window, by scrolling up from 'Process finished with exit code 0'
+two,1)
+(Spark,3)
+(test,3)
+(Intellij,3)
+(one,1)
+(Idea,3)
+(three,1)
+(Scala,3)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Spark word count code - Program 2:
+Link1: https://stdatalabs.com/2018/09/creating-spark-application-using-intellij-and-sbt/
+Link2: https://www.youtube.com/watch?v=aSD7K9WQ198
+
+// Configure winutils.exe in Windows (Setup WinUtils to get HDFS APIs working)
+Link1: https://kaizen.itversity.com/setup-development-environment-intellij-and-scala-big-data-hadoop-and-spark/
+
+// Download the winutils.exe executable file from below location:
+https://codeload.github.com/gvreddy1210/64bit/zip/master
+
+// Create the below folders/directories in 'c' (hadoop & bin)
+C:\hadoop\bin
+
+//paste winutils.exe downloaded above in the bin folder:
+ex: C:\hadoop\bin\winutils.exe
+
+
+//Setup new environment variable HADOOP_HOME
+Start > Edit the system environment variables > enter pin for administrator access (if the user does not have administrator rights) >  Environment Variables > System variables
+- New:
+Variable Name = HADOOP_HOME
+Variable Value = C:\hadoop
+
+- Click on Path > Edit > New:
+%HADOOP_HOME%\bin
+
+
+// Exit any open command prompts
+// Open/Relaunch cmd (command prompt) and run
+winutils.exe
+
+Result: to check if it is accessible. Once it is accessible, the setup is done
+
+
+//
+src > main > scala > right click > new > scala class
+Object = SampleSparkApp2 
+
+// Create a input folder:
+SampleSaprkScalaApp > right click and create a New Directory > input
+
+// Add a txt file in input folder
+SampleSaprkScalaApp > input > right click on input and create a New File > SparkWordCountData
+
+//Add some data in the SparkWordCountData file:
+Apache Apache Apache Spark is a unified analytics engine and
+it is used to process large scale data.
+Apache spark provides the functionality
+to connect with other programming languages
+
+
+// Then, add the below code in scala class 'SampleSparkApp2': 
+- Note: change the text file input location in the below code:
+-----------------------
+object SampleSparkApp2 {
+
+  import org.apache.spark.{SparkConf, SparkContext}
+  System.setProperty("hadoop.home.dir", "C:\\hadoop")
+
+  def main(args: Array[String]) = {
+
+    //Create a SparkContext to initialize Spark
+    val conf = new SparkConf()
+    conf.setMaster("local")
+    conf.setAppName("Word Count example")
+    val sc = new SparkContext(conf)
+
+    // Load the text into a Spark RDD, which is a distributed representation of each line of text
+    val textFile = sc.textFile("input/SparkWordCountData")
+
+    //word count
+    val counts = textFile.flatMap(line => line.split(" "))
+      .map(word => (word, 1))
+      .reduceByKey(_ + _)
+
+    counts.foreach(println)
+    System.out.println("Total words: " + counts.count())
+    counts.saveAsTextFile("output/SparkWordCountData2")
+  }
+
+}
+-------------------------------------------------------------------------------------------------
+
+// Right click on SampleSparkApp2 > Run 'SampleSparkApp2'
+
+// The output folder will be created after successful Run
+
+Result:
+21/04/25 17:32:04 INFO ShutdownHookManager: Shutdown hook called
+21/04/25 17:32:04 INFO ShutdownHookManager: Deleting directory C:\Users\jismi\AppData\Local\Temp\spark-b599b26e-09d9-4791-a296-d349cc3e5a42
+
+Process finished with exit code 0
+
+// To see the output result different ways:
+1. By scrollingup the Run result window in IntelliJ
+
+2. SampleSparkScalaApp > output > double click on 'part-00000'
+
+3. C:\Users\jismi\IdeaProjects\SampleSparkScalaApp\output\SparkWordCountData2\part-00000 (can be opened with notepad)
+
+
+// Delete any output directory - after each Run and before a new reRun. Else it might throw an exception
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Additional References:
+https://www.youtube.com/watch?v=cU3FshbeeFo
+
+https://www.youtube.com/watch?v=hYUYVE1JuWs
+
+https://www.youtube.com/watch?v=nmUC7K7XO38
+
+https://www.journaldev.com/20342/apache-spark-example-word-count-program-java
+
+https://www.geeksforgeeks.org/how-to-configure-windows-to-build-a-project-having-apache-spark-code-without-installing-it/
+
+https://stdatalabs.com/2018/09/creating-spark-application-using-intellij-and-sbt/
+https://www.youtube.com/watch?v=aSD7K9WQ198
+
+https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11/2.1.0
+https://blog.miz.space/tutorial/2016/08/30/how-to-integrate-spark-intellij-idea-and-scala-install-setup-ubuntu-windows-mac/

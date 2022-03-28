@@ -1,0 +1,80 @@
+File > New Project > Scala > sbt > Next > Name: scalademo > JDK: 1.8 version > sbt: 1.5.2 > Scala: 2.11.12
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+HelloWorld Code to be run in IntelliJ (to check code is running properly):
+--------------------------------------------------------------------------
+package scalademo
+
+import org.apache.spark.sql.SparkSession
+
+object HelloWorld {
+  def main(args: Array[String]): Unit = {
+    val spark =
+      SparkSession
+        .builder
+        .appName("Hello Spark App")
+        //.master("local")
+        .config("spark.master", "local")
+        .config("spark.eventLog.enabled", false)
+        .getOrCreate()
+
+    println("Hello Spark")
+
+    spark.stop()
+
+  }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Built.sbt code: (In IntelliJ):
+------------------------------
+name := "scala-demo"
+
+version := "0.1"
+
+scalaVersion := "2.11.12"
+
+libraryDependencies += "org.apache.spark" %% "spark-core" % "2.3.1"
+libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.3.1"
+libraryDependencies += "org.apache.spark" %% "spark-hive" % "2.3.1"
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+In Ubuntu Command Line:
+-----------------------
+
+maria@DFLY36P2:~$ cd /mnt/c/Users/jismi/IdeaProjects/
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects$ ls
+
+MyMaxMin             Spark-BigData-Twitter-Sentiment-Analyzer  Spark-Java2    WordCount   untitled
+SampleSparkScalaApp  Spark-Java                                SparkScalaApp  scala-demo  words.txt.txt
+
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects$ cd scala-demo/
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo$ ls
+build.sbt  project  src  target
+
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo$ ls -ltr
+total 0
+drwxrwxrwx 1 maria maria 4096 May 10 01:41 src
+drwxrwxrwx 1 maria maria 4096 May 10 01:42 project
+-rwxrwxrwx 1 maria maria  269 May 10 01:49 build.sbt
+drwxrwxrwx 1 maria maria 4096 May 10 01:49 target
+
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo$ sbt package
+
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo$ ls
+build.sbt  project  src  target
+
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo$ cd target/
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo/target$ ls
+global-logging  scala-2.11  scala-2.13  streams  task-temp-directory
+
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo/target$ cd scala-2.11
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo/target/scala-2.11$ ls
+classes  scala-demo_2.11-0.1.jar  update  zinc
+
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo/target/scala-2.11$ ls -ltr scala-demo_2.11-0.1.jar
+
+maria@DFLY36P2:/mnt/c/Users/jismi/IdeaProjects/scala-demo/target/scala-2.11$ spark-submit --class scalademo.HelloWorld \
+> /mnt/c/Users/jismi/IdeaProjects/scala-demo/target/scala-2.11/scala-demo_2.11-0.1.jar

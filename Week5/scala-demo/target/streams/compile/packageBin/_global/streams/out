@@ -1,0 +1,9 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /mnt/c/users/William Terry/Desktop/scala-demo/target/scala-2.11/scala-demo_2.11-0.1.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	scalademo[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/c/users/William Terry/Desktop/scala-demo/target/scala-2.11/classes/scalademo[0m
+[0m[[0m[0mdebug[0m] [0m[0m	scalademo/HelloWorld$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/c/users/William Terry/Desktop/scala-demo/target/scala-2.11/classes/scalademo/HelloWorld$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	scalademo/HelloWorld.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/c/users/William Terry/Desktop/scala-demo/target/scala-2.11/classes/scalademo/HelloWorld.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m

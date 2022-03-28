@@ -1,0 +1,28 @@
+in Linux
+https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html
+in Ubuntu using above site:
+----------------------------------------------------------------
+sudo apt-get update
+sudo apt-get install apt-transport-https curl gnupg -yqq
+echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list
+echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list
+curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo -H gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/scalasbt-release.gpg --import
+sudo chmod 644 /etc/apt/trusted.gpg.d/scalasbt-release.gpg
+sudo apt-get update
+sudo apt-get install sbt
+------------------------------------------------------------------------
+Then in ubuntu, for my example using the scala/Spark code written on my desktop with IntelliJ in windows, in my WSL2 terminal:
+
+---------------------------------------------------------------
+cd '/mnt/c/users/William Terry/Desktop/scala-demo'
+sbt package
+(or sbt clean package)
+cd '/mnt/c/users/William Terry/Desktop/scala-demo/target/scala-2.11'
+ls
+(you should see scala-demo_2.11-0.1.jar in this directory)
+start-master.sh
+spark-submit --class scalademo.HelloWorld scala-demo_2.11-0.1.jar
+
+------------------------------------------------------------------------------
+spark submit details and configurations: 
+https://spark.apache.org/docs/latest/submitting-applications.html

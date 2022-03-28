@@ -1,0 +1,187 @@
+val df = spark.read.json("/user/will/people.json")
+df.show()
+df.createOrReplaceTempView("people")
+val sqlDF = spark.sql("SELECT * FROM people")
+sqlDF.show()
+
+//Global Temporary View
+//Temporary views in Spark SQL are session-scoped and will disappear if the session that creates it terminates. If you want to have a temporary view that is shared among all sessions and //keep alive until the Spark application terminates, you can create a global temporary view. Global temporary view is tied to a system preserved database global_temp, and we must use the //qualified name to refer it, e.g. SELECT * FROM global_temp.view1.
+
+df.createGlobalTempView("people2")
+
+// Global temporary view is tied to a system preserved database `global_temp`
+spark.sql("SELECT * FROM global_temp.people2").show()
+
+// Global temporary view is cross-session
+spark.newSession().sql("SELECT * FROM global_temp.people2").show()
+-----------------------------------------------------------------------------
+case class Employee(name: String, age: Long)
+
+val cseclassds  = Seq(Employee("Andy",32)).toDS()
+cseclassds.show()
+
+val primitivesds = Seq(1,2,3).toDS()
+
+primitivesds.map(_+1).collect()
+
+case class Person(name: String, age: Long)
+
+val path = "/user/will/people.json"
+val peopleDS = spark.read.json(path).as[Person]
+peopleDS.show()
+
+------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------
+
+//RDD TO DF TO DS
+-----------------------------------------------------------------------------------
+When should I use DataFrames or Datasets?
+
+1)If you want rich semantics, high-level abstractions, and domain specific APIs, use DataFrame or Dataset.
+2)If your processing demands high-level expressions, filters, maps, aggregation, averages, sum, SQL queries, columnar access and use of lambda functions on semi-structured data, use DataFrame or Dataset.
+3)If you want higher degree of type-safety at compile time, want typed JVM objects, take advantage of Catalyst optimization, and benefit from Tungsten’s efficient code generation, use Dataset.
+4)If you want unification and simplification of APIs across Spark Libraries, use DataFrame or Dataset.
+5)If you are a R user, use DataFrames.
+6)If you are a Python user, use DataFrames and resort back to RDDs if you need more control.
+
+RDD and Dataframe uses Kryo serilizer
+Dataset uses Encoder serilizer 
+
+-------------------------------------------------------------------------
+//Example Untyped User-Defined Aggregate Functions
+
+//{"name":"Michael", "salary":3000}
+//{"name":"Andy", "salary":4500}
+//{"name":"Justin", "salary":3500}
+//{"name":"Berta", "salary":4000}
+
+
+
+import org.apache.spark.sql.expressions.MutableAggregationBuffer
+import org.apache.spark.sql.expressions.UserDefinedAggregateFunction
+import org.apache.spark.sql.types._
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.SparkSession
+
+object MyAverage extends UserDefinedAggregateFunction {
+  // Data types of input arguments of this aggregate function
+  def inputSchema: StructType = StructType(StructField("inputColumn", LongType) :: Nil)
+  // Data types of values in the aggregation buffer
+  def bufferSchema: StructType = {
+    StructType(StructField("sum", LongType) :: StructField("count", LongType) :: Nil)
+  }
+  // The data type of the returned value
+  def dataType: DataType = DoubleType
+  // Whether this function always returns the same output on the identical input
+  def deterministic: Boolean = true
+  // Initializes the given aggregation buffer. The buffer itself is a `Row` that in addition to
+  // standard methods like retrieving a value at an index (e.g., get(), getBoolean()), provides
+  // the opportunity to update its values. Note that arrays and maps inside the buffer are still
+  // immutable.
+  def initialize(buffer: MutableAggregationBuffer): Unit = {
+    buffer(0) = 0L
+    buffer(1) = 0L
+  }
+  // Updates the given aggregation buffer `buffer` with new input data from `input`
+  def update(buffer: MutableAggregationBuffer, input: Row): Unit = {
+    if (!input.isNullAt(0)) {
+      buffer(0) = buffer.getLong(0) + input.getLong(0)
+      buffer(1) = buffer.getLong(1) + 1
+    }
+  }
+  // Merges two aggregation buffers and stores the updated buffer values back to `buffer1`
+  def merge(buffer1: MutableAggregationBuffer, buffer2: Row): Unit = {
+    buffer1(0) = buffer1.getLong(0) + buffer2.getLong(0)
+    buffer1(1) = buffer1.getLong(1) + buffer2.getLong(1)
+  }
+  // Calculates the final result
+  def evaluate(buffer: Row): Double = buffer.getLong(0).toDouble / buffer.getLong(1)
+}
+
+// Register the function to access it
+spark.udf.register("myAverage", MyAverage)
+
+val df = spark.read.json("/user/will/employees.json")
+df.createOrReplaceTempView("employees")
+df.show()
+
+val result = spark.sql("SELECT myAverage(salary) as average_salary FROM employees")
+result.show()
+--------------------------------------------------------------------------------------------------------------------------
+
+//Type-Safe User-Defined Aggregate Functions
+
+
+//{"name":"Michael", "salary":3000}
+//{"name":"Andy", "salary":4500}
+//{"name":"Justin", "salary":3500}
+//{"name":"Berta", "salary":4000}
+
+import org.apache.spark.sql.expressions.Aggregator
+import org.apache.spark.sql.Encoder
+import org.apache.spark.sql.Encoders
+import org.apache.spark.sql.SparkSession
+
+case class Employee(name: String, salary: Long)
+case class Average(var sum: Long, var count: Long)
+
+object MyAverage extends Aggregator[Employee, Average, Double] {
+  // A zero value for this aggregation. Should satisfy the property that any b + zero = b
+  def zero: Average = Average(0L, 0L)
+  // Combine two values to produce a new value. For performance, the function may modify `buffer`
+  // and return it instead of constructing a new object
+  def reduce(buffer: Average, employee: Employee): Average = {
+    buffer.sum += employee.salary
+    buffer.count += 1
+    buffer
+  }
+  // Merge two intermediate values
+  def merge(b1: Average, b2: Average): Average = {
+    b1.sum += b2.sum
+    b1.count += b2.count
+    b1
+  }
+  // Transform the output of the reduction
+  def finish(reduction: Average): Double = reduction.sum.toDouble / reduction.count
+  // Specifies the Encoder for the intermediate value type
+  def bufferEncoder: Encoder[Average] = Encoders.product
+  // Specifies the Encoder for the final output value type
+  def outputEncoder: Encoder[Double] = Encoders.scalaDouble
+}
+
+val ds = spark.read.json("/user/will/employees.json").as[Employee]
+ds.show()
+
+// Convert the function to a `TypedColumn` and give it a name
+val averageSalary = MyAverage.toColumn.name("average_salary")
+val result = ds.select(averageSalary)
+result.show()
+
+---------------------------------------------------------------------------------------------
+//Generic Load Functions
+
+val empdf1 = spark.read.json("/user/will/people.json")
+
+empdf1.write.parquet("/user/will/employee_101234.parquet")
+
+val parquetfiledf = spark.read.parquet("/user/will/employee_101234.parquet")
+
+//Look for Data in  HDFS
+
+parquetfiledf.createOrReplaceTempView("parquetFile")
+
+val namedf=spark.sql("SELECT * FROM parquetFile")
+
+namedf.show()
+-------------------------------------------------------------------------
+val peopleDF = spark.read.format("json").load("/user/will/people.json")
+
+peopleDF.select("name", "age").write.format("parquet").save("/user/will/namesAndAges.parquet")
+
+--------------------------------------------------------------------------------------------
+val peopleDF = spark.read.format("json").load("/user/will/people.json")
+
+peopleDF.write.partitionBy("name").format("parquet").save("/user/will/namesPartByColor.parquet")
+
+hdfs dfs -cat /user/will/employee_101234.parquet/part-00000-e4605471-4ac7-4621-9ca2-839f24cd08b7-c000.snappy.parquet

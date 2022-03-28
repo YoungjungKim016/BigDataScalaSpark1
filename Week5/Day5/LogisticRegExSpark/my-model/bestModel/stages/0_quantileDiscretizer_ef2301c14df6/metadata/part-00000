@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.Bucketizer","timestamp":1640874079059,"sparkVersion":"2.3.0","uid":"quantileDiscretizer_ef2301c14df6","paramMap":{"inputCol":"seeds","outputCol":"discretized","splits":["-Inf",3.0,7.0,18.0,"Inf"],"handleInvalid":"error"}}

@@ -1,0 +1,59 @@
+import java.io.IOException
+  
+// Creating object
+object GFG {  
+.................................................................................
+
+Arithmetic Exception occurred.
+In Scala a single catch block can handle all kinds of exceptions thus providing flexibility.
+
+The finally Clause :
+
+If we want some part of our code to execute irrespective of how the expression terminates we can use a finally block. Here is an example of the above:
+
+
+//Spark  program of finally Exception 
+  
+// Creating object
+object GFG2 
+{
+    // Main method
+    def main(args: Array[String]) 
+    {
+        try
+        {
+            var N = 5/0
+        } 
+        catch
+        {
+            // Catch block contain case.
+            case ex: ArithmeticException => 
+            {
+                println("Arithmetic Exception occurred.")
+            }
+        }
+        finally
+        {
+            // Finally block will execute 
+            println("This is final block.")
+        }
+    }
+
+--------------------------------------------------------------------------------------------
+
+object ScalaPlayground extends App {
+  def getInt(throwException: Boolean): Int = {
+    if (throwException) throw new RuntimeException("Exception was thrown forcefully.")
+    26
+  }
+
+  val exception = try {
+    getInt(false)
+  } catch {
+    case e: NullPointerException => println("Nothing will be printed.")
+    case e: RuntimeException => println(s"Exception caught with message = ${e.getMessage}")
+  } finally {
+    println("Anything in the finally block will always be executed.")
+  }
+  println(exception)
+}
