@@ -21,7 +21,7 @@ How many movies for each genre?
 How many movies are starting with numbers or letters (Example: Starting with 1/2/3../A/B/C..Z)?
 List the latest released movies
 ----------------------------------------------------------------------------------------------------------------------
-Spark SQL(Quaries)
+Spark SQL(Queries)
 ---------------------
 Create tables for movies.dat, users.dat and ratings.dat: Saving Tables from Spark SQL
 Find the list of the oldest released movies.
