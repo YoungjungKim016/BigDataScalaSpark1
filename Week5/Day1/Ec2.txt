@@ -1,0 +1,24 @@
+mv testMarch28.pem ~/.ssh
+chmod 400 ~/.ssh/testMarch28.pem
+sudo service ssh restart
+
+sudo ssh -i ~/.ssh/testMarch28.pem ec2-user@ec2-3-138-246-8.us-east-2.compute.amazonaws.com
+
+-----------------------------------------------------------------------
+#now you should be connected to the EC-2 instance:
+
+sudo yum install java-1.8.0-openjdk
+
+wget http://downloads.typesafe.com/scala/2.11.6/scala-2.11.6.tgz
+tar -xzvf scala-2.11.6.tgz
+rm -rf scala-2.11.6.tgz
+
+export SCALA_HOME=/home/ec2-user/scala-2.11.6
+export PATH=$PATH:/home/ec2-user/scala-2.11.6/bin
+
+source ~/.bashrc
+
+--------------------------
+#in a new ubuntu terminal window from your local computer:
+
+sudo scp -i ~/.ssh/testMarch28.pem HelloWorld.scala ec2-user@ec2-3-138-246-8.us-east-2.compute.amazonaws.com:~/
