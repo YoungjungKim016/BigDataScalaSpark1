@@ -1,0 +1,31 @@
+mv NewMarch28_key.pem ~/.ssh
+chmod 400 ~/.ssh/NewMarch28_key.pem
+sudo service ssh restart
+sudo ssh -i  ~/.ssh/NewMarch28_key.pem azureuser@20.231.90.165
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install openjdk-8-jdk
+sudo apt-get install scala
+
+vi ~/.bashrc
+---------------------------------
+#Enter below in the file:
+[Press i to Insert the below data]
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+------------------------------------
+source .bashrc
+
+
+---------------------------------------------------------------------
+#in another terminal window:
+sudo scp -i  ~/.ssh/NewMarch28_key.pem HelloWorld.scala azureuser@20.231.90.165:~/
+
+
+-----------------------------------
+# in original terminal connected to vm
+
+scalac HelloWorld.scala
+scala HelloWorld
+

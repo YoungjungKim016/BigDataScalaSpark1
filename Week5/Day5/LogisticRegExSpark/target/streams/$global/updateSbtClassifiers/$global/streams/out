@@ -238,7 +238,6 @@
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.7 {compile=[default(compile)]} => dependency: org.scala-lang#scala-library;2.10.7 {compile=[default(compile)]}
 [info] Resolving org.scala-sbt#control;0.13.18 ...
 [debug] sbt-chain: Checking cache for: dependency: org.scala-sbt#control;0.13.18 {compile=[default(compile)]}
-[debug] no default cache defined: set to C:\Users\William Terry\.ivy2\cache
 [debug] sbt-chain: module revision found in cache: org.scala-sbt#control;0.13.18
 [debug] 	found org.scala-sbt#control;0.13.18 in sbt-chain
 [debug] dependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.7 {compile=[default(compile)]} => dependency: org.scala-lang#scala-library;2.10.7 {compile=[default(compile)]}
@@ -1779,9 +1778,9 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#test-interface;1.0!test-interface.jar
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.18!apply-macro.jar
 [debug] 	[NOT REQUIRED] org.scala-sbt#template-resolver;0.1!template-resolver.jar
-[debug] :: resolution report :: resolve 610ms :: artifacts dl 42ms
-[debug] 	report for logisticmlexample#logisticmlexample$sbt_2.10;0.1 default produced in C:\Users\William Terry\Desktop\LogisticRegExSpark\target\scala-2.11\resolution-cache\reports\logisticmlexample-logisticmlexample$sbt_2.10-default.xml
-[debug] 	resolve done (610ms resolve - 42ms download)
+[debug] :: resolution report :: resolve 620ms :: artifacts dl 23ms
+[debug] 	report for logisticmlexample#logisticmlexample$sbt_2.10;0.1 default produced in C:\Users\William Terry\Desktop\LogisticRegExSpark\target\scala-2.12\resolution-cache\reports\logisticmlexample-logisticmlexample$sbt_2.10-default.xml
+[debug] 	resolve done (620ms resolve - 23ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: logisticmlexample#logisticmlexample$sources_2.10;0.1
 [debug] 	confs: [default]
@@ -2459,6 +2458,6 @@
 [debug] 	[NOT REQUIRED] com.jcraft#jsch;0.1.50!jsch.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-sbt#classpath;0.13.18!classpath.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.18!apply-macro.jar(src)
-[debug] :: resolution report :: resolve 191ms :: artifacts dl 33ms
-[debug] 	report for logisticmlexample#logisticmlexample$sources_2.10;0.1 default produced in C:\Users\William Terry\Desktop\LogisticRegExSpark\target\scala-2.11\resolution-cache\reports\logisticmlexample-logisticmlexample$sources_2.10-default.xml
-[debug] 	resolve done (191ms resolve - 33ms download)
+[debug] :: resolution report :: resolve 131ms :: artifacts dl 26ms
+[debug] 	report for logisticmlexample#logisticmlexample$sources_2.10;0.1 default produced in C:\Users\William Terry\Desktop\LogisticRegExSpark\target\scala-2.12\resolution-cache\reports\logisticmlexample-logisticmlexample$sources_2.10-default.xml
+[debug] 	resolve done (131ms resolve - 26ms download)
