@@ -84,3 +84,4 @@ export HADOOP_CONF_DIR=XXX
   http://path/to/examples.jar \
   1000
 
+https://spark.apache.org/docs/latest/submitting-applications.html
