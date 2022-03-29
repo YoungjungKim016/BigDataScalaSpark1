@@ -1,10 +1,10 @@
 mv NewMarch28_key.pem ~/.ssh
 chmod 400 ~/.ssh/NewMarch28_key.pem
 sudo service ssh restart
-sudo ssh -i  ~/.ssh/NewMarch28_key.pem azureuser@20.231.90.165
+sudo ssh -i  ~/.ssh/NewMarch28_key.pem azureuser@40.71.78.19
 
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt update && sudo apt -y full-upgrade
+
 sudo apt-get install openjdk-8-jdk
 sudo apt-get install scala
 

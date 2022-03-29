@@ -36,8 +36,8 @@ When should I use DataFrames or Datasets?
 5)If you are a R user, use DataFrames.
 6)If you are a Python user, use DataFrames and resort back to RDDs if you need more control.
 
-RDD and Dataframe uses Kryo serilizer
-Dataset uses Encoder serilizer 
+RDD and Dataframe uses Kryo serializer
+Dataset uses Encoder serializer 
 
 -------------------------------------------------------------------------
 //Example Untyped User-Defined Aggregate Functions
