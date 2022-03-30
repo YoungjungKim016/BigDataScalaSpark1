@@ -1,0 +1,156 @@
+//hdfs dfs -put /home/will/movies.dat /user/will
+//hdfs dfs -put /home/will/users.dat /user/will
+//hdfs dfs -put /home/will/ratings.dat /user/will
+
+//Spark RDD
+//-----------------------------------------------------
+val sc=spark.sparkContext
+val rddMovFromFile = sc.textFile("/user/will/movies.dat")
+val rddMov = rddMovFromFile.map(f=>{f.split("::")})
+
+val rddUsersFromFile = spark.sparkContext.textFile("/user/will/users.dat")
+val rddUsers = rddUsersFromFile.map(f=>{f.split("::")})
+
+val rddRatingsFromFile = spark.sparkContext.textFile("/user/will/ratings.dat")
+val rddRatings = rddRatingsFromFile.map(f=>{f.split("::")})
+
+
+//top 10 most viewed movies
+val MovWId=rddMov.map(f=>(f(0),f(1)))
+MovWId.take(10).foreach(println)
+
+val ViewCol=rddRatings.map(f => f(1))
+val ViewedNum=ViewCol.map( (_,1) ).reduceByKey(_+_)
+val ViewedSort=ViewedNum.sortBy(_._2, ascending = false)
+ViewedSort.take(10).foreach(println)
+
+ViewSort.collect
+ViewedSort.join(MovWId).collect()
+MovWId.join(ViewedSort).collect()
+
+ViewedNum.join(MovWId).collect()
+
+var MostViewRdd=ViewedNum.join(MovWId).sortBy(_._2._1,ascending = false).take(200).foreach(println)
+
+
+//distinct list of genres
+val Genre=rddMov.map(f => f(2))
+val Genre2=Genre.filter(x => x.matches("[A-Za-z\'-]+")).distinct()
+Genre2.collect()
+
+//to count number of movies with each genre
+val Genre3=Genre.filter(x => x.matches("[A-Za-z\'-]+")).map( (_,1) ).reduceByKey(_+_)
+Genre3.collect()
+
+//how many movies starting with numbers or letters: 3878
+rddMov.filter(arr => Character.isLetterOrDigit(arr(1).charAt(0))).count
+//thank you for this one Maria
+
+//latest released movies
+val Title=rddMov.map(f => f(1))
+val Date=rddMov.map(f=>f(1).substring((f(1).length-5),(f(1).length-1)).trim.toInt)
+
+
+//val DateWId=rddMov.map(f=>(f(1).substring((f(1).length-5),(f(1).length-1)).trim.toInt,f(0)))
+val DateWId=rddMov.map(f=>(f(0),f(1).substring((f(1).length-5),(f(1).length-1)).trim.toInt))
+val DateWIdSort=DateWId.sortBy(_._1,ascending = false)
+
+val TitleOnly=rddMov.map(f=>f(1).substring(0,(f(1).length-7)))
+
+val MovWId=rddMov.map(f=>(f(0),f(1)))
+//val MovWId=rddMov.map(f=>(f(1),f(0)))
+
+DateWIdSort.join(MovWId).sortBy(_._1,ascending = true).collect()
+MovWId.join(DateWIdSort).collect()
+
+DateWId.join(MovWId).sortBy(_._2._1,ascending = false).take(200).foreach(println)
+
+Top200LatesRdd=DateWId.join(MovWId).sortBy(_._2._1,ascending = false).take(200)
+
+
+\\Spark SQL(Quaries)
+\\---------------------
+\\Create tables for movies.dat, users.dat and ratings.dat: Saving Tables from Spark SQL
+\\Find the list of the oldest released movies.
+\\How many movies are released each year?
+\\How many number of movies are there for each rating?
+\\How many users have rated each movie?
+\\What is the total rating for each movie?
+\\What is the average rating for each movie?
+----------------------------------------------------------------------------------------------------------------------
+import org.apache.spark.sql.expressions.MutableAggregationBuffer
+import org.apache.spark.sql.expressions.UserDefinedAggregateFunction
+import org.apache.spark.sql.types._
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.SparkSession
+
+//https://www.hadoopinrealworld.com/how-to-convert-rdd-to-dataframe-and-dataset-in-spark/
+import spark.implicits._
+import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerType, DoubleType}
+import org.apache.spark.sql.Row
+
+import org.apache.spark.sql._
+
+case class Movie(MovieID: Long, Title: String, Genres: String)
+val dfMov=rddMov.map(attributes => Movie(attributes(0).trim.toLong, attributes(1), attributes(2))).toDF()
+dfMov.createOrReplaceTempView("movies")
+val Movies1 = spark.sql("SELECT * FROM movies")
+Movies1.show()
+
+case class Users(UserID: Long, Gender: String, Age: Int, Occupation: Long, ZipCode:Long)
+val dfUse=rddUsers.map(attributes => Users(attributes(0).trim.toLong, attributes(1), attributes(2).trim.toInt, attributes(3).trim.toLong, attributes(4).trim.toLong)).toDF()
+dfUse.createOrReplaceTempView("users")
+val Users1 = spark.sql("SELECT * FROM users")
+Users1.show()
+
+case class Ratings(UserID: Long, MovieID: Long, Rating: Long, TimeStamp1: String)
+val dfRat=rddRatings.map(attributes => Ratings(attributes(0).trim.toLong, attributes(1).trim.toLong, attributes(2).trim.toLong, attributes(3))).toDF()
+dfRat.createOrReplaceTempView("ratings")
+dfRat.createOrReplaceTempView("Ratings2")
+val Ratings1 = spark.sql("SELECT * FROM ratings")
+Ratings1.show()
+
+\\How many number of movies are there for each rating?
+dfRat.createOrReplaceTempView("Ratings")
+dfRat.createOrReplaceTempVIew("Ratings2")
+spark.sql("SELECT Rating,Count(Rating) FROM Ratings GROUP BY Rating ORDER BY Rating").show()
+\\
+\\How many users have rated each movie?
+spark.sql("SELECT MovieID,COUNT(MovieID) FROM Ratings GROUP BY MovieID ORDER BY MovieID").show()
+
+\\What is the total rating for each movie?
+spark.sql("SELECT MovieID, sum(Rating) FROM Ratings GROUP BY MovieID ORDER BY MovieID").show()
+
+\\What is the average rating for each movie
+spark.sql("SELECT MovieID, avg(Rating) FROM Ratings GROUP BY MovieID ORDER BY MovieID").show()
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\Spark DataFrames(Quaries) 
+\\---------------------
+\\Prepare Movies data: Extracting the Year and Genre from the Text
+\\Prepare Users data: Loading a double delimited csv file
+\\Prepare Ratings data: Programmatically specifying a schema for the dataframe
+\\
+\\Use Broadcast Variable Where Joins are used
+\\
+import org.apache.spark.sql.functions.regexp_extract
+dfMov.show()
+val dfMov2=dfMov.withColumn("Year", regexp_extract($"Title", "\\d+", 0)).withColumn("TitleOnly", regexp_extract($"Title", "[a-zA-Z \':]+", 0))
+dfMov2.show()
+
+\\Find the list of the oldest released movies.
+\\How many number of movies are there for each rating?
+dfMov2.createOrReplaceTempView("movies2")
+
+dfMov.createOrReplaceTempView("movies")
+val Movies2 = spark.sql("SELECT Distinct Year FROM movies2 ORDER BY Year DESC")
+
+
+
+dfUse.show()
+
+dfRat.show()
+dfRat.schema
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
