@@ -173,7 +173,7 @@ peopleDF.select("name", "age").write.format("parquet").save("/user/will/namesAnd
 --------------------------------------------------------------------------------------------
 val peopleDF = spark.read.format("json").load("/user/will/people.json")
 
-peopleDF.write.partitionBy("name").format("parquet").save("/user/will/namesPartByColor.parquet")
+peopleDF.write.partitionBy("name").format("parquet").save("/user/will/nameAndAgesPartitioned.parquet")
 
 hdfs dfs -cat /user/will/employee_101234.parquet/part-00000-e4605471-4ac7-4621-9ca2-839f24cd08b7-c000.snappy.parquet
 
