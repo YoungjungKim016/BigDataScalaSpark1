@@ -1,4 +1,4 @@
-val df = spark.read.json("/user/will/people.json")
+val df = spark.read.option("multiline", "true").json("/user/will/people.json")
 df.show()
 df.createOrReplaceTempView("people")
 val sqlDF = spark.sql("SELECT * FROM people")
@@ -18,7 +18,7 @@ primitivesds.map(_+1).collect()
 case class Person(name: String, age: Long)
 
 val path = "/user/will/people.json"
-val peopleDS = spark.read.json(path).as[Person]
+val peopleDS = spark.read.option("multiline", "true").json(path).as[Person]
 peopleDS.show()
 
 ------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ object MyAverage extends UserDefinedAggregateFunction {
 // Register the function to access it
 spark.udf.register("myAverage", MyAverage)
 
-val df = spark.read.json("/user/will/employees.json")
+val df = spark.read.option("multiline", "true").json("/user/will/employees.json")
 df.createOrReplaceTempView("employees")
 df.show()
 
@@ -97,10 +97,10 @@ result.show()
 //Type-Safe User-Defined Aggregate Functions
 
 
-//{"name":"Michael", "salary":3000}
-//{"name":"Andy", "salary":4500}
-//{"name":"Justin", "salary":3500}
-//{"name":"Berta", "salary":4000}
+//[{"name":"Michael", "salary":3000},
+//{"name":"Andy", "salary":4500},
+//{"name":"Justin", "salary":3500},
+//{"name":"Berta", "salary":4000}]
 
 
 import org.apache.spark.sql.expressions.Aggregator
@@ -135,7 +135,7 @@ object MyAverage extends Aggregator[Employee, Average, Double] {
   def outputEncoder: Encoder[Double] = Encoders.scalaDouble
 }
 
-val ds = spark.read.json("/user/will/employees.json").as[Employee]
+val ds = spark.read.option("multiline", "true").json("/user/will/employees.json").as[Employee]
 ds.show()
 
 // Convert the function to a `TypedColumn` and give it a name
@@ -146,7 +146,7 @@ result.show()
 ---------------------------------------------------------------------------------------------
 //Generic Load Functions
 
-val empdf1 = spark.read.json("/user/will/people.json")
+val empdf1 = spark.read.option("multiline", "true").json("/user/will/people.json")
 
 empdf1.write.parquet("/user/will/employee_101235.parquet")
 
@@ -160,12 +160,12 @@ val namedf=spark.sql("SELECT * FROM parquetFile")
 
 namedf.show()
 -------------------------------------------------------------------------
-val peopleDF = spark.read.format("json").load("/user/will/people.json")
+val peopleDF = spark.read.format("json").option("multiline", "true").load("/user/will/people.json")
 
 peopleDF.select("name", "age").write.format("parquet").save("/user/will/namesAndAges.parquet")
 
 --------------------------------------------------------------------------------------------
-val peopleDF = spark.read.format("json").load("/user/will/people.json")
+val peopleDF = spark.read.val peopleDF = spark.read.format("json").option("multiline", "true").format("json").load("/user/will/people.json")
 
 peopleDF.write.partitionBy("name").format("parquet").save("/user/will/nameAndAgesPartitioned.parquet")
 
