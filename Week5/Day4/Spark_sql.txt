@@ -42,13 +42,6 @@ Dataset uses Encoder serializer
 -------------------------------------------------------------------------
 //Example Untyped User-Defined Aggregate Functions
 
-//{"name":"Michael", "salary":3000}
-//{"name":"Andy", "salary":4500}
-//{"name":"Justin", "salary":3500}
-//{"name":"Berta", "salary":4000}
-
-
-
 import org.apache.spark.sql.expressions.MutableAggregationBuffer
 import org.apache.spark.sql.expressions.UserDefinedAggregateFunction
 import org.apache.spark.sql.types._
