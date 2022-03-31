@@ -97,10 +97,12 @@ result.show()
 //Type-Safe User-Defined Aggregate Functions
 
 
-//[{"name":"Michael", "salary":3000},
+//[
+//{"name":"Michael", "salary":3000},
 //{"name":"Andy", "salary":4500},
 //{"name":"Justin", "salary":3500},
-//{"name":"Berta", "salary":4000}]
+//{"name":"Berta", "salary":4000}
+//]
 
 
 import org.apache.spark.sql.expressions.Aggregator
@@ -165,10 +167,11 @@ val peopleDF = spark.read.format("json").option("multiline", "true").load("/user
 peopleDF.select("name", "age").write.format("parquet").save("/user/will/namesAndAges.parquet")
 
 --------------------------------------------------------------------------------------------
-val peopleDF = spark.read.val peopleDF = spark.read.format("json").option("multiline", "true").format("json").load("/user/will/people.json")
+val peopleDF = spark.read.format("json").option("multiline", "true").format("json").load("/user/will/people.json")
 
 peopleDF.write.partitionBy("name").format("parquet").save("/user/will/nameAndAgesPartitioned.parquet")
 
+//or whatever the given name is below
 hdfs dfs -cat /user/will/employee_101234.parquet/part-00000-e4605471-4ac7-4621-9ca2-839f24cd08b7-c000.snappy.parquet
 
 
@@ -176,10 +179,10 @@ hdfs dfs -cat /user/will/employee_101234.parquet/part-00000-e4605471-4ac7-4621-9
 //Global Temporary View
 //Temporary views in Spark SQL are session-scoped and will disappear if the session that creates it terminates. If you want to have a temporary view that is shared among all sessions and //keep alive until the Spark application terminates, you can create a global temporary view. Global temporary view is tied to a system preserved database global_temp, and we must use the //qualified name to refer it, e.g. SELECT * FROM global_temp.view1.
 
-df.createGlobalTempView("people2")
+df.createGlobalTempView("people6")
 
 // Global temporary view is tied to a system preserved database `global_temp`
-spark.sql("SELECT * FROM global_temp.people2").show()
+spark.sql("SELECT * FROM global_temp.people6").show()
 
 // Global temporary view is cross-session
-spark.newSession().sql("SELECT * FROM global_temp.people2").show()
+spark.newSession().sql("SELECT * FROM global_temp.people6").show()
