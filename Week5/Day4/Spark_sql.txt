@@ -96,12 +96,12 @@ result.show()
 
 //Type-Safe User-Defined Aggregate Functions
 
-//[
-//{"name":"Michael", "salary":3000},
-//{"name":"Andy", "salary":4500},
-//{"name":"Justin", "salary":3500},
+
+//{"name":"Michael", "salary":3000}
+//{"name":"Andy", "salary":4500}
+//{"name":"Justin", "salary":3500}
 //{"name":"Berta", "salary":4000}
-//]
+
 
 import org.apache.spark.sql.expressions.Aggregator
 import org.apache.spark.sql.Encoder
