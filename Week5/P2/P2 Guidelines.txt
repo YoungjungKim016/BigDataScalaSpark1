@@ -30,5 +30,5 @@ Requirements:
 
 
 ### Due Date
-- Presentations will take place on Monday, 4/13
-- Send Project proposal with MVP clearly labeled with 2-3 stretch goals by end of week, 4/1
+- Presentations will take place on Wednesday, 4/13
+- Send Project proposal with MVP clearly labeled with 2-3 stretch goals by end of day, 4/4
