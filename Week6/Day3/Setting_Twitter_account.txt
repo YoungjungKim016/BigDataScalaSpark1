@@ -1,0 +1,40 @@
+// Apps are where you get your access keys & tokens and set permissions.
+https://developer.twitter.com/en
+Click on Developer Portal
+
+1.	// Create a Project
+Name: Test1 (provide a name to your project)
+Use Case: Teaching / Student
+Description: I want to Analyze the Twitter Live Streaming data using Apache Spark Streaming to teach my students on how they can fetch the twitter live streamed data and analyse them in real time using Apache Spark streaming feature.  (The description can be modified based on role. Students can give a description that suits their role as a student)
+
+// Answer all the questions, to submit the response for Twitter team to review and approve the App usage
+It will take couple of hrs to a day for Twitter to approve the Project
+
+
+Q1?
+In English, please describe how you plan to use Twitter data and/or APIs. The more detailed the response, the easier it is to review and approve.
+Response:
+I want to Analyze the Twitter Live Streaming data using Apache Spark Streaming to teach my students on how they can fetch the twitter live streamed data and analyse them in real time using Apache Spark streaming feature. 
+
+
+
+Q2?
+Are you planning to analyze Twitter data?
+Please describe how you will analyze Twitter data including any analysis of Tweets or Twitter users.
+Response:
+I am trying to demonstrate to my students on how to use Spark streaming with Twitter. Aim is to analyze social media unstructured data from twitter using Apache Spark Streaming application. There is no specific target users or specific tweets. Any generic unstructured data from twitter can be analyzed.
+
+Q3?
+Will your app use Tweet, Retweet, Like, Follow, or Direct Message functionality?
+Response: No
+
+Q4?
+Do you plan to display Tweets or aggregate data about Twitter content outside Twitter?
+Response: YES
+Please describe how and where Tweets and/or data about Twitter content will be displayed outside of Twitter.
+Response:
+Tweets and/or data about Twitter content will be displayed outside of Twitter in my local computer machines. As part of learning, I want to teach my students to analyze the twitter data feeds using spark streaming.
+
+Q5?
+Will your product, service, or analysis make Twitter content or derived information available to a government entity?
+Response: No
