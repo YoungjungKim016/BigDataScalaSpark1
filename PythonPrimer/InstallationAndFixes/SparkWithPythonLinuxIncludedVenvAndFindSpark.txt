@@ -1,0 +1,51 @@
+https://towardsdatascience.com/working-with-apache-spark-python-and-pyspark-128a82668e67
+
+#skip virtual environment part if you do not want virtual environment
+
+-may need below too
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+
+
+
+$mkdir testenv
+
+Now we have to go to this directory and create the environment (all environment file will be created inside a directory that we called my_env)
+
+
+to use below had to do this:
+$sudo apt-get install python3.8-venv
+
+$python3 -m venv my_env
+
+We finished we can check the environment files created using the ls my_env
+To use this environment, you need to activate it:
+
+$source my_env/bin/activate
+
+
+to see using python in virtual env type:
+$which python
+
+If we have Apache Spark installed on the machine we don’t need to install the pyspark library into our development environment. We need to install the findspark library which is responsible of locating the pyspark library installed with apache Spark.
+
+$pip3 install findspark
+
+In each python script file we must add the following lines:
+import findspark
+findspark.init()
+
+
+import findspark
+findspark.init()
+from pyspark.sql import SparkSession
+sparkSession = SparkSession.builder.appName("example-pyspark-hdfs").getOrCreate()
+
+print("created Spark Session")
+df_load = sparkSession.read.csv(‘hdfs://localhost:9000/myfiles/myfilename’)
+df_load.show()
+
+
+
+https://python.land/virtual-environments/virtualenv
+https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/
+https://spark.apache.org/docs/latest/api/python/getting_started/install.html

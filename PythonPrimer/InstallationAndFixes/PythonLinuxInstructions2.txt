@@ -1,0 +1,47 @@
+#Dont actually give this out, just for me
+
+type:
+cd ~
+which python3
+
+output:
+wterry@LAPTOP-F85RETIP:~$ which python3
+/usr/bin/python3
+
+add '#!/usr/bin/python3' to top of script
+
+or add better: #!/usr/bin/env python3
+
+######################################################
+$cd ~/bin python3 FirstScriptLinuxP
+
+#write in vim don't transfer over gets messed up, unless it's a good file used on 
+
+#!/usr/bin/env python3
+# A first Python script
+import sys # Load a library module
+print(sys.platform)
+print(2 ** 100) # Raise 2 to a power
+x = 'Spam!'
+print(x * 8) # String repetition
+
+####
+#don't save as py just create in vim or bring over from intelliJ
+
+#############################################
+also 'which python3' very useful
+
+
+
+
+
+
+
+
+source:
+https://www.geeksforgeeks.org/run-python-script-from-anywhere-in-linux/
+
+https://www.openbookproject.net/thinkcs/python/english2e/app_c.html
+
+https://www.loekvandenouweland.com/content/execute-python-script-without-typing-python-in-front-of-it.html
+

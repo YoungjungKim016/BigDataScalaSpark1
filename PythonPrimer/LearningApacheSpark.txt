@@ -1,0 +1,7 @@
+https://runawayhorse001.github.io/LearningApacheSpark/
+
+https://github.com/runawayhorse001/LearningApacheSpark
+
+#has some of the notebooks and datasets
+https://github.com/MingChen0919/learning-apache-spark/
+https://mingchen0919.github.io/learning-apache-spark/index.html

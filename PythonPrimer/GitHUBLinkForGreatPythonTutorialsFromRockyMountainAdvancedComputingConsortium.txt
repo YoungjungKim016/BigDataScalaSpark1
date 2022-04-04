@@ -1,0 +1,8 @@
+https://github.com/wcardoen/numpy-rmacc2020/tree/master/notebooks
+
+or just explore:
+https://github.com/wcardoen/numpy-rmacc2020
+
+
+may want jupyter notebooks installed too:
+https://www.geeksforgeeks.org/how-to-install-jupyter-notebook-in-windows/

@@ -1,0 +1,6 @@
+import findspark
+findspark.init('/path/to/spark/home')
+
+https://stackoverflow.com/questions/42223498/findspark-init-indexerror-list-index-out-of-range-error
+
+in linux use: echo $SPARK_HOME

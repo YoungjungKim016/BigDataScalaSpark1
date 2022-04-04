@@ -1,0 +1,5 @@
+https://linuxize.com/post/how-to-install-pip-on-ubuntu-20.04/
+
+https://stackoverflow.com/questions/64804991/java-home-not-found-in-ubuntu
+
+if problems with /etc/environment see : https://dirask.com/posts/Ubuntu-set-JAVA-HOME-environment-variable-jErVZ1

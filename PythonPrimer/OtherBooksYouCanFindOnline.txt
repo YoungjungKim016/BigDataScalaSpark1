@@ -1,0 +1,6 @@
+McKinney, Wes. Python for data analysis: Data wrangling with Pandas, NumPy, and IPython. " O'Reilly Media, Inc.", 2018.
+
+Karau, Holden, et al. Learning spark: lightning-fast big data analysis. " O'Reilly Media, Inc.", 2020.
+
+Lutz, Mark. Learning python: Powerful object-oriented programming. " O'Reilly Media, Inc.", 2013.
+

@@ -1,0 +1,16 @@
+On Windows, virtualenv creates a .bat/.ps1 file, so you should run venv\Scripts\activate instead (per the virtualenv documentation on the activate script).
+
+https://stackoverflow.com/questions/8921188/issue-with-virtualenv-cannot-activate
+
+
+https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/
+
+
+just type deactivate to deactivate
+
+
+step 1:
+pip3 install -U pip virtualenv
+
+step2:
+mypthon\Scripts\activate

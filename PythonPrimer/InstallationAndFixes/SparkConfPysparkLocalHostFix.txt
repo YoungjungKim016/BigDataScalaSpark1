@@ -1,0 +1,37 @@
+wterry@LAPTOP-F85RETIP:/opt/spark/conf$ cp spark-env.sh.template spark-env.sh
+
+wterry@LAPTOP-F85RETIP:vim spark-env.sh
+
+# Options read when launching programs locally with
+# ./bin/run-example or ./bin/spark-submit
+# - HADOOP_CONF_DIR, to point Spark towards Hadoop configuration files
+# - SPARK_LOCAL_IP, to set the IP address Spark binds to on this node
+SPARK_LOCAL_IP="127.0.0.1"
+# - SPARK_PUBLIC_DNS, to set the public dns name of the driver program
+
+
+------------
+note: just added in the SPARK_LOCAL_IP="127.0.0.1", if you haven't already done this so that pyspark doesn't complain when you just say:
+
+wterry@LAPTOP-F85RETIP:~$ pyspark
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------
+https://stackoverflow.com/questions/38300099/what-is-the-right-way-to-edit-spark-env-sh-before-running-spark-shell
+
+https://github.com/LMFDB/warwick-spark/blob/master/spark-env.sh
+
+https://support.datastax.com/s/article/Spark-hostname-resolving-to-loopback-address-warning-in-spark-worker-logs
