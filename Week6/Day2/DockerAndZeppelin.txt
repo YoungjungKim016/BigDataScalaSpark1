@@ -1,0 +1,23 @@
+#for zeppelin you can use docker:
+#first install docker on ubuntu
+
+#https://docs.docker.com/desktop/windows/wsl/ 
+#or https://docs.docker.com/engine/install/ubuntu/
+#or find a resource of your choice for docker install instructions, then in Ubuntu:
+
+cd /opt/spark
+
+docker run -p 8080:8080 -p 4040:4040 --rm -v $PWD:/opt/spark -e SPARK_HOME=/opt/spark  --name zeppelin apache/zeppelin:0.10.1
+
+
+#or if you want to be able to run the same container over again remove the -rm flag:
+
+docker run -p 8080:8080 -p 4040:4040 -v $PWD:/opt/spark -e SPARK_HOME=/opt/spark  --name zeppelin apache/zeppelin:0.10.1
+
+#now you can use below and rm when you want to remove container
+
+dockert stop zeppelin
+
+docker start zeppelin
+
+docker rm -f zeppelin
