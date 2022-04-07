@@ -1,0 +1,3 @@
+https://www.scala-sbt.org/1.x/docs/Configuring-Scala.html
+
+https://www.baeldung.com/scala/sbt-fat-jar
