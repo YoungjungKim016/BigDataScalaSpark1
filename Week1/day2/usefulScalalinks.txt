@@ -52,3 +52,7 @@ https://alvinalexander.com/scala/how-to-put-scala-function-reference-in-map-valu
 
 //Companion Objects
 https://docs.scala-lang.org/overviews/scala-book/companion-objects.html
+
+//Great video
+//Thanks Jeffrey
+https://www.youtube.com/watch?v=-xRfJcwhy7A
