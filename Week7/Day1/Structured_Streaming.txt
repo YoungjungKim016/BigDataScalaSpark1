@@ -1,0 +1,51 @@
+import org.apache.spark.sql.SparkSession
+
+
+object StructuredNetworkWordCount {
+  def main(args: Array[String]): Unit = {
+    val spark = SparkSession.builder.appName("StructuredNetworkWordCount")
+      .getOrCreate()
+
+    val lines = spark.readStream.format("socket").option("host", "localhost").option("port", 9999).load()
+    import spark.implicits._
+    val words = lines.as[String].flatMap(_.split(" "))
+
+    val wordCounts = words.groupBy("value").count()
+
+    val query = wordCounts.writeStream.outputMode("complete").format("console").start()
+
+    query.awaitTermination()
+  }
+}
+
+//with build
+
+name := "TestStream"
+
+version := "0.1"
+
+scalaVersion := "2.12.10"
+
+libraryDependencies += "org.apache.spark" %% "spark-core" % "3.1.2"
+libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.1.2"
+
+
+
+//in terminal 1 run below:
+
+$ nc -lk 9999
+
+//in terminal 2 run below:
+$cd '/mnt/c/users/William Terry/Desktop/TestStream/'
+$sbt clean package 
+
+//after starting hdfs
+
+$ spark-submit --master local --class StructuredNetworkWordCount '/mnt/c/users/William Terry/Desktop/TestStream/target/scala-2.12/teststream_2.12-0.1.jar'
+
+//or (after starting up hdfs) just
+$ /opt/spark/bin/run-example org.apache.spark.examples.sql.streaming.StructuredNetworkWordCount localhost 9999
+
+//https://spark.apache.org/docs/3.0.0-preview/structured-streaming-programming-guide.html
+
+//https://github.com/apache/spark/blob/master/examples/src/main/scala/org/apache/spark/examples/sql/streaming/StructuredNetworkWordCount.scala
