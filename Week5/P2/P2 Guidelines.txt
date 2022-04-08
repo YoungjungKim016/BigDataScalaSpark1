@@ -2,12 +2,12 @@ This is a template, to be filled out by each group and placed in their git repo 
 Requirements:
 - Create a Spark Application that processes COVID data
 - Your project 2 pitch should involve some analysis of COVID data. This is the central feature. 
-- Send me a link to a git repo, have someone in the group manage git (but they can ask for help from me)
-- Produce one or more .jar files for your analysis. Then you can run application using spark-submit (in Ubuntu).
+- Send me a link to a git repo, have someone in the group manage git 
+- Produce one or more .jar files for your analysis. Then you can run application using spark-submit.
 - 10 queries per group
 - find a trend
 - implement logging (with Spark)
-- use Zeppelin (graphics and visuals) for showing trends and data analysis
+- use Zeppelin (or Tableu or other visualization software for graphics and visuals) for showing trends and data analysis
 - Implement Agile Scrum methodology for project work (choose Scrum Master who will serve as team lead, all communication with me funneled through this associate, and have daily scrum meetings, by end of day report blockers)
 
 ### Presentations
