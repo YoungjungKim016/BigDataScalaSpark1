@@ -9,7 +9,7 @@ import org.apache.kafka.common.serialization.{IntegerSerializer, StringSerialize
 
 
 object ProducerPlayground extends App{
-  val topicName = "sql_dolphins3"
+  val topicName = "sql_dolphins2"
 
   val producerProperties = new Properties()
   producerProperties.setProperty(
