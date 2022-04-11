@@ -1,3 +1,10 @@
 https://www.scala-sbt.org/1.x/docs/Configuring-Scala.html
 
 https://www.baeldung.com/scala/sbt-fat-jar
+
+
+//if want to use resource folder use below links and GResource example
+
+https://www.scala-sbt.org/1.x/docs/Howto-Customizing-Paths.html
+
+http://fruzenshtein.com/scala-working-with-resources-folders-files/
