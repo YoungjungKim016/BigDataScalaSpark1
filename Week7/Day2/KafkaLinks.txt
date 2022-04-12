@@ -1,1 +1,19 @@
 https://kafka.apache.org/quickstart
+
+
+
+
+
+
+
+
+
+
+
+//a few links for setting up Kakfa on EC2
+
+//notice in this one they say t2.micro is not sufficient
+https://medium.com/@maftabali2k13/setting-up-a-kafka-cluster-on-ec2-1b37144cb4e
+
+
+https://normanlimxk.com/2021/11/01/setup-a-kafka-cluster-on-amazon-ec2/
