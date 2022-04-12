@@ -1,6 +1,6 @@
 DataFrame
 
-var df1 = spark.read.json("/user/will/people.json")
+var df1 = spark.read.option("multiline", "true").json("/user/will/people.json")
 df1.show()
 //var df2 = spark.read.text("/user/will/people.txt")
 //df2.show()
