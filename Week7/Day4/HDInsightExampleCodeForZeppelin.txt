@@ -1,0 +1,17 @@
+%livy2.spark
+import org.apache.spark.sql.Row; 
+import org.apache.spark.sql.types.{StructType,StructField,StringType,IntegerType};
+val buildings = (spark.sparkContext.textFile("/HdiSamples/HdiSamples/SensorSampleData/building/building.csv")
+                   .map((line) => line.split(","))
+                   .filter((r) => r(0) != "BuildingID")
+                   .map((r) => Row(r(0).toInt, r(1), r(2).toInt, r(3), r(4))))
+val schema = StructType(List(StructField("BuildingID", IntegerType, true),
+                             StructField("BuildingMgr", StringType, true),
+                             StructField("BuildingAge", IntegerType, true),
+                             StructField("HVACProduct", StringType, true),
+                             StructField("Country", StringType, true)))
+                            
+val df = spark.createDataFrame(buildings, schema)
+df.show()
+
+df.coalesce(1).write.format("csv").option("header","true").mode("Overwrite").save("/tmp/spark_output/datacsvTest") 
